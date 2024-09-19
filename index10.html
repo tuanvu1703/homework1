@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng điểm của em</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin-top: 50px;
+        }
+        .container {
+            background-color: #ffffff;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            padding: 20px;
+            width: 50%;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .input-group label {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .input-group input,
+        select {
+            width: 200px;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #summary,
+        #result {
+            font-weight: bold;
+            text-align: left;
+            width: 80%;
+            margin: 10px auto;
+            padding: 10px;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+        }
+        #summary {
+            background-color: #e9f5ff;
+            color: #333;
+        }
+        #result {
+            background-color: #f0f8ff;
+            color: red;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Bảng điểm của em</h1>
+
+        <form id="scoreForm">
+            <div class="input-group">
+                <label for="semester1">Semester 1:</label>
+                <input type="number" id="semester1" min="0" max="10" step="0.1" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="semester2">Semester 2:</label>
+                <input type="number" id="semester2" min="0" max="10" step="0.1" required>
+            </div>
+
+            <div class="input-group">
+                <label for="yearSelect">Chọn năm học:</label>
+                <select id="yearSelect">
+                    <option value="2023-2024">2023-2024</option>
+                    <option value="2024-2025">2024-2025</option>
+                    <option value="2025-2026">2025-2026</option>
+                </select>
+            </div>
+
+            <div id="summary">
+                <strong>Summarise:</strong>
+            </div>
+
+            <div id="result">
+                <strong>Kết quả:</strong> 
+            </div>
+
+            <div class="buttons">
+                <button type="button" id="okBtn">OK</button>
+                <button type="reset" id="cancelBtn">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const okBtn = document.getElementById('okBtn');
+        const semester1Input = document.getElementById('semester1');
+        const semester2Input = document.getElementById('semester2');
+        const summary = document.getElementById('summary');
+        const result = document.getElementById('result');
+
+        function calculateSummary() {
+            const semester1 = parseFloat(semester1Input.value);
+            const semester2 = parseFloat(semester2Input.value);
+
+            if (isNaN(semester1) || isNaN(semester2)) {
+                summary.textContent = 'Vui lòng nhập điểm hợp lệ cho cả hai học kỳ.';
+                result.textContent = '';
+                return;
+            }
+
+            const average = (semester1 + semester2) / 2;
+            let resultText;
+
+            if (average >= 9) {
+                resultText = 'Xuất sắc';
+            } else if (average >= 7) {
+                resultText = 'Giỏi';
+            } else if (average >= 5) {
+                resultText = 'Trung bình';
+            } else {
+                resultText = 'Yếu';
+            }
+
+            summary.innerHTML = `<strong>Summarise:</strong> Điểm trung bình: ${average.toFixed(2)}`;
+            result.innerHTML = `<strong>Kết quả:</strong> Xếp loại: ${resultText}`;
+        }
+
+        okBtn.addEventListener('click', calculateSummary);
+    </script>
+
+</body>
+</html>
