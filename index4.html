@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng màu xen kẽ theo hàng</title>
+    <style>
+        table {
+            border-collapse: separate; 
+            border-spacing: 10px; 
+            width: 50%;
+            margin: 20px auto;
+        }
+        td {
+            width: 50px;
+            height: 50px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+
+<table id="colorTable"></table>
+
+<script>
+    const rows = 5;
+    const cols = 10;
+    const table = document.getElementById('colorTable');
+
+    for (let i = 0; i < rows; i++) {
+        const row = document.createElement('tr');
+        for (let j = 0; j < cols; j++) {
+            const cell = document.createElement('td');
+            
+            if (i % 2 === 0) {
+                cell.style.backgroundColor = 'pink';
+            } else {
+                cell.style.backgroundColor = 'red';
+            }
+            row.appendChild(cell);
+        }
+        table.appendChild(row);
+    }
+</script>
+
+</body>
+</html>
